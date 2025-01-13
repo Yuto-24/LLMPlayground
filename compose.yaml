@@ -1,0 +1,27 @@
+services:
+  llm_playground:
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+      args:
+        - PROXY=${HTTP_PROXY}
+        - DOCKER_GID=${DOCKER_GID}
+    environment:
+      TZ: Asia/Tokyo
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: ${NO_PROXY}
+    volumes:
+      - type: bind
+        source: ./streamlit/streamlit
+        target: /app
+    tty: true
+    restart: always
+    env_file: .env
+    networks:
+      - default
+
+networks:
+  default:
+    name: ${NET_NAME}
+    external: true

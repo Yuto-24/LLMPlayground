@@ -1,0 +1,16 @@
+services:
+  llm_playground:
+    container_name: llm_playground_${USER_NAME}
+    volumes:
+      # for dev
+      - type: bind
+        source: .
+        target: /var/git
+      # for git ssh connection (only for dev)
+      - type: bind
+        source: ~/.ssh
+        target: /root/.ssh
+      - ./.vscode-server:/root/.vscode-server
+    ports:
+      - 28501:8501
+    command: bash -c "cd /app && streamlit run compare.py"

@@ -1,0 +1,15 @@
+// 無視するファイル
+.*
+_*
+*.log
+models_config.*
+models_config.*
+
+// 除外ファイル
+!.gitignore
+!.vscode
+!.env.*
+!.jsbeaurifyrc
+!.prettierrc
+!.gitmessage.txt
+!__init__.py

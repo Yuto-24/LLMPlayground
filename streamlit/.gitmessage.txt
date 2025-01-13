@@ -1,0 +1,13 @@
+
+# ==== Prefix ====
+# fix🐛:      A bug fix (バグ修正)
+# feat✨:     A new feature (部分的な機能追加)
+# docs📝:     Documentation only changes (ドキュメント修正)
+# style💄:    Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) (Lintエラーの修正やコードスタイルの修正)
+# refactor♻️: A code change that neither fixes a bug nor adds a feature (リファクタリング)
+# perf🚀:     A code change that improves performance (パフォーマンス改善)
+# test💚:     Adding missing or correcting existing tests (テストやCIの修正・改善)
+# chore🍱:    Changes to the build process or auxiliary tools and libraries such as documentation generation (依存パッケージなどのアップデート)
+#
+# 参考：https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#type
+# 絵文字一覧：https://gitmoji.dev/

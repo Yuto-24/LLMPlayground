@@ -13,3 +13,5 @@ models_config.*
 !.prettierrc
 !.gitmessage.txt
 !__init__.py
+# Local credentials and environment overrides must never be committed.
+.env.local

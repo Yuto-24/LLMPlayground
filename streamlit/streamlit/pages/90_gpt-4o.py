@@ -3,16 +3,26 @@
 import asyncio
 import streamlit as st
 
+from typing import Any
+from pydantic import BaseModel
+
 from utils.logger import logger
 from utils.models import ModelManager
 from utils.models.health_checker import ModelHealthChecker
 from components.components import stream_generation, display_chat_history, gpt_parameter
-from generator.generator import get_generator
+from generator.generator import get_generator, BaseGenerator
 from chat_manager.message import format_message
 from chat_manager.history_manager import ChatHistoryManager
 
 
-def preparing_chat(model_id):
+class ChatConfig(BaseModel):
+    title: str
+    icon: str
+    base_url: str
+    generator: Any
+
+
+def preparing_chat(model_id) -> ChatConfig:
     # Model configuration
     model_manager = ModelManager()
     model_config = model_manager.get_model_details(model_id)
@@ -25,26 +35,31 @@ def preparing_chat(model_id):
     # worker
     generator = get_generator(model_config)
 
-    return title, icon, model_config, base_url, generator
+    return ChatConfig(
+        title=title,
+        icon=icon,
+        base_url=base_url,
+        generator=generator,
+    )
 
 
 MODEL_ID = "gpt4o"
 
-title, icon, model_config, base_url, generator = preparing_chat(MODEL_ID)
+chat_config = preparing_chat(MODEL_ID)
 
 # Page settings
 st.set_page_config(
-    page_title=title,
-    page_icon=icon,
+    page_title=chat_config.title,
+    page_icon=chat_config.icon,
 )
-st.header(f"{icon} {title}")
+st.header(f"{chat_config.icon} {chat_config.title}")
 
 
 # Initialize session state
 if MODEL_ID not in st.session_state:
     health_checker = ModelHealthChecker()
     with st.spinner(text="Preparing: Checking Status..."):
-        health_checker.check(base_url)
+        health_checker.check(chat_config.base_url)
     st.session_state[MODEL_ID] = ChatHistoryManager(
         chat_log=[],
         params={},
@@ -87,7 +102,7 @@ if USER_INPUT:
 
     # Generate a response asynchronously
     response = asyncio.run(stream_generation(
-        generator=generator,
+        generator=chat_config.generator,
         message_list=new_chat_history,
         **(st.session_state[MODEL_ID].params or {}),
     ))

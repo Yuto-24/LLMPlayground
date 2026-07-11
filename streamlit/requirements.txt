@@ -1,12 +1,12 @@
 # API
 requests
 openai >= 1.0.0, < 2.0
-# langchain >= 0.1.0, < 0.2
-anthropic == 0.25.7
-# langserve[all]
-# langchain-openai
-llama-cpp-python == 0.2.68
-google-generativeai == 0.5.4
+# # langchain >= 0.1.0, < 0.2
+# anthropic == 0.25.7
+# # langserve[all]
+# # langchain-openai
+# llama-cpp-python == 0.2.68
+# google-generativeai == 0.5.4
 
 # UI
 streamlit == 1.31.0
@@ -25,11 +25,11 @@ loguru
 # File
 openpyxl
 
-# Jupyter
-jupyter >= 1.0.0
-jupyterlab >= 3.2, <3.3
-ipykernel
-ipywidgets
+# # Jupyter
+# jupyter >= 1.0.0
+# jupyterlab >= 3.2, <3.3
+# ipykernel
+# ipywidgets
 
 # Dev
 pylint

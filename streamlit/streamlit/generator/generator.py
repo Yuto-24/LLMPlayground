@@ -5,6 +5,7 @@ This file is managing about generator
 from openai import OpenAI, AzureOpenAI
 from typing import List, Dict, Generator
 from utils.models import APIConfig, ModelDetail
+# from pydantic import GetCoreSchemaHandler, CoreSchema
 
 
 class BaseGenerator:
@@ -36,6 +37,9 @@ class BaseGenerator:
                 yield response
         except Exception as e:
             raise RuntimeError(f"Failed to generate response: {e}")
+
+    # def __get_pydantic_core_schema__(self, handler: GetCoreSchemaHandler) -> CoreSchema:
+    #     return CoreSchema(type="any")
 
 
 class OpenAIGenerator(BaseGenerator):
